@@ -71,7 +71,14 @@ function renderIsomorphic(req, res, next, state = {}) {
     fs.readFile(filename, 'utf-8', handleFile)
   } else {
     const filename = path.join(compiler.outputPath, 'index.html')
-    compiler.outputFileSystem.readFile(filename, handleFile)
+    compiler.outputFileSystem.readFile(filename, (err, result) => {
+      if (err) {
+        return next(
+          "The template could not be retrieved for interpolation. Has the compiler finished running?"
+        )
+      }
+      handleFile(err, result)
+    })
   }
 }
 
