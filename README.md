@@ -1,5 +1,5 @@
 # react-redux-express
-Isomorphic React with Redux, HMR, and an express backend
+Isomorphic React with Redux, HMR, express middleware, and a mongo backend.
 
 This is my first stab at a node application.
 I merged the following repositories into a single project to use as a starting point
