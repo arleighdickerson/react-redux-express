@@ -23,8 +23,7 @@ const config = {
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
-  //server_host: ip.address(),
-  server_host: 'localhost',
+  server_host: ip.address(),
   server_port: process.env.PORT || 3000,
   renderer_port: process.env.PORT || 3001,
 
