@@ -11,13 +11,15 @@ export default agent
   .use(require('superagent-prefix')('/api'))
   .use(request => {
     if (!SAFE_METHODS.includes(request.method)) {
-      const send = Object.getPrototypeOf(request).send
-      request.send = data => {
-        const _csrf = document
-          .querySelector('meta[name="csrf-token"]')
-          .getAttribute('content')
-        return send.bind(request)({_csrf, ...data})
-      }
+      /*
+       const send = Object.getPrototypeOf(request).send
+       request.send = data => {
+       const _csrf = document
+       .querySelector('meta[name="csrf-token"]')
+       .getAttribute('content')
+       return send.bind(request)({_csrf, ...data})
+       }
+       */
     }
     return request.send({}).accept('json').type('json')
   })

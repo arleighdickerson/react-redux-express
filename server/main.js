@@ -1,5 +1,5 @@
 require('babel-register')
-require("babel-polyfill");
+require('babel-polyfill');
 
 const debug = require('debug')('app:server')
 const path = require('path')
@@ -53,22 +53,6 @@ module.exports = function (cb) {
       // when the application is compiled.
       app.use(express.static(config.utils_paths.dist()))
 
-      // This rewrites all routes requests to the root /index.html file
-      // (ignoring file requests). If you want to implement universal
-      // rendering, you'll want to remove this middleware.
-      /*
-       app.use('*', function (req, res, next) {
-       const filename = path.join(compiler.outputPath, 'index.html')
-       compiler.outputFileSystem.readFile(filename, (err, result) => {
-       if (err) {
-       return next(err)
-       }
-       res.set('content-type', 'text/html')
-       res.send(result)
-       res.end()
-       })
-       })
-       */
     } else {
       debug(
         'Server is being run outside of live development mode, meaning it will ' +
