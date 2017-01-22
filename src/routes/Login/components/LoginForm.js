@@ -1,7 +1,6 @@
 import React from "react";
-import RaisedButton from "material-ui/RaisedButton";
-import {TextField} from "redux-form-material-ui";
 import {reduxForm, Field} from "redux-form";
+import {Input} from 'react-bootstrap'
 
 const constraints = {
   username: {
@@ -12,7 +11,7 @@ const constraints = {
   },
 };
 
-const validate = require('../../../util/validate')(constraints)
+const validate = require('app/util/validate')(constraints)
 
 export class LoginForm extends React.Component {
   render() {
@@ -23,10 +22,10 @@ export class LoginForm extends React.Component {
         handleSubmit(username, password);
       }}>
         <div>
-          <Field fullWidth={true} component={TextField} hintText='username' name='username' value={username}/>
+          <Field fullWidth={true} component={Input} hintText='username' name='username' value={username}/>
         </div>
         <div>
-          <Field fullWidth={true} component={TextField} hintText='password' name='password' type='password'
+          <Field fullWidth={true} component={Input} hintText='password' name='password' type='password'
                  value={password}/>
         </div>
         <div>

@@ -6,6 +6,7 @@
     "npm": "^3.0.0"
   },
   "scripts": {
+    "postinstall": "node ./bin/npm.postinstall.js",
     "clean": "better-npm-run clean",
     "compile": "better-npm-run compile",
     "dev": "better-npm-run dev",
@@ -81,6 +82,7 @@
     "passport": "latest",
     "postcss-loader": "^1.1.0",
     "react": "^15.0.0",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.0.0",
     "react-redux": "^5.0.1",
     "react-router": "^3.0.0",
@@ -95,8 +97,11 @@
     "socket.io": "latest",
     "style-loader": "^0.13.1",
     "superagent": "^3.3.2",
+    "superagent-prefix": "0.0.2",
     "superagent-promise": "^1.1.0",
+    "superagent-use": "^0.1.0",
     "url-loader": "^0.5.6",
+    "validate.js": "^0.11.1",
     "webpack": "^1.12.14",
     "webpack-isomorphic-tools": "^2.6.6",
     "webpack-stats-plugin": "latest",
