@@ -36,16 +36,16 @@ webpackConfig.entry = {
     ? [APP_ENTRY].concat(`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`)
     : [APP_ENTRY],
   vendor: config.compiler_vendors,
-  //fonts: [
-  //'open-sans-fontface',
-  //'roboto-fontface',
-  //paths.client('styles/fonts/toolkit-entypo.eot'),
-  //paths.client('styles/fonts/toolkit-entypo.ttf'),
-  //paths.client('styles/fonts/toolkit-entypo.woff'),
-  //paths.client('styles/fonts/toolkit-entypo.woff2'),
-  //paths.client('styles/toolkit.less'),
-  //paths.client('styles/application.less')
-  //]
+  fonts: [
+    'open-sans-fontface',
+    'roboto-fontface',
+    paths.client('styles/fonts/toolkit-entypo.eot'),
+    paths.client('styles/fonts/toolkit-entypo.ttf'),
+    paths.client('styles/fonts/toolkit-entypo.woff'),
+    paths.client('styles/fonts/toolkit-entypo.woff2'),
+    paths.client('styles/toolkit.less'),
+    paths.client('styles/application.less')
+  ]
 }
 
 // ------------------------------------

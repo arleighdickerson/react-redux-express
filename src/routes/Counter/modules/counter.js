@@ -2,7 +2,6 @@
 // Constants
 // ------------------------------------
 export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
-export const COUNTER_DOUBLE_ASYNC = 'COUNTER_DOUBLE_ASYNC'
 
 // ------------------------------------
 // Actions
@@ -16,16 +15,17 @@ export function increment (value = 1) {
 
 /*  This is a thunk, meaning it is a function that immediately
     returns a function for lazy evaluation. It is incredibly useful for
-    creating async actions, especially when combined with redux-thunk! */
+    creating async actions, especially when combined with redux-thunk!
+
+    NOTE: This is solely for demonstration purposes. In a real application,
+    you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
+    reducer take care of this logic.  */
 
 export const doubleAsync = () => {
   return (dispatch, getState) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        dispatch({
-          type    : COUNTER_DOUBLE_ASYNC,
-          payload : getState().counter
-        })
+        dispatch(increment(getState().counter))
         resolve()
       }, 200)
     })
@@ -41,8 +41,7 @@ export const actions = {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
-  [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2
+  [COUNTER_INCREMENT] : (state, action) => state + action.payload
 }
 
 // ------------------------------------

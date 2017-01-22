@@ -12,7 +12,6 @@ export const Counter = (props) => (
     </button>
   </div>
 )
-
 Counter.propTypes = {
   counter     : React.PropTypes.number.isRequired,
   doubleAsync : React.PropTypes.func.isRequired,
