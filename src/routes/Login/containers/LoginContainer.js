@@ -13,9 +13,18 @@ const mapStateToProps = (state) => {
   return {...getFormValues('loginform')(state)}
 }
 
-const LoginContainer = (props) => (
-  <LoginView>
-    <LoginForm {...props}/>
-  </LoginView>
-)
+class LoginContainer extends React.Component {
+  render() {
+    const props = {...this.context, ...this.props}
+    return (
+      <LoginView>
+        <LoginForm {...props}/>
+      </LoginView>
+    )
+  }
+}
+
+LoginContainer.contextTypes = {
+  store: React.PropTypes.object
+}
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)

@@ -52,14 +52,14 @@ const ACTION_HANDLERS = {
   [LOGIN_SUCCESS]: (state, {payload}) => {
     return payload
   },
-  [LOGIN_FAILURE]: () => {
-    return null
+  [LOGIN_FAILURE]: (state, {payload}) => {
+    return false
   },
   [LOGOUT_SUCCESS]: () => {
     return null
   },
   [LOGOUT_FAILURE]: state => {
-    return state
+    return false
   }
 }
 
