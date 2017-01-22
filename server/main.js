@@ -1,5 +1,5 @@
 require('babel-register')
-require('babel-polyfill');
+require('babel-polyfill')
 
 const debug = require('debug')('app:server')
 const path = require('path')
