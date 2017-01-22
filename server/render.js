@@ -31,23 +31,27 @@ const createRoutes = require('../src/routes/index').default
 function renderIsomorphic(req, res, next, state = {}) {
   const pathname = req.path
   const initialState = {
-    routing: {
+    routing: { //initialize router location
       location: {
         pathname
       }
     },
     ...state
   }
-  global.___INITIAL_STATE__ = initialState
-  const history = ReactRouter.createMemoryHistory(pathname)
-  const store = createStore(history, initialState)
-  const routes = createRoutes(store)
 
-  const component = config.globals.__PROD__
-    ? ReactDOMServer.renderToString(
+  //default to client-only rendering
+  let component = ''
+  if (config.globals.__PROD__) {
+    global.___INITIAL_STATE__ = initialState
+    const history = ReactRouter.createMemoryHistory(pathname)
+    const store = createStore(history, initialState)
+    const routes = createRoutes(store)
+    //render on server in production
+    component = ReactDOMServer.renderToString(
       React.createElement(AppContainer, {store, routes, history})
     )
-    : ''
+    delete global.___INITIAL_STATE__
+  }
   const handleFile = (err, result) => {
     if (err) {
       return next(err)

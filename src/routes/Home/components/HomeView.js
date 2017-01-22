@@ -7,10 +7,8 @@ export const HomeView = (props) => {
 
       <div className="jumbotron">
         <h1>Congratulations!</h1>
-
-        <p className="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a className="btn btn-lg btn-primary-outline" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p className="lead">You have successfully bootstrapped the application.</p>
+        <p><a className="btn btn-lg btn-primary-outline" href="http://arleighdickerson.us">Hire me for side work</a></p>
       </div>
 
       <div className="body-content">
@@ -24,7 +22,7 @@ export const HomeView = (props) => {
               ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
               fugiat nulla pariatur.</p>
 
-            <p><a className="btn btn-default" href="http://arleighdickerson.us">arls was here</a></p>
+            <p><a className="btn btn-default" href="http://arleighdickerson.us">Arls was here</a></p>
           </div>
           <div className="col-lg-4">
             <h2>Heading</h2>
