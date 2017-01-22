@@ -15,13 +15,17 @@ export function login(req, res, next) {
       return next(err);
     }
     if (!user) {
-      return res.json(false)
+      return res
+        .status(422)
+        .json(false)
     }
     req.logIn(user, function (err) {
       if (err) {
         return next(err);
       }
-      return res.json(filterUserProperties(user));
+      return res
+        .status(200)
+        .json(filterUserProperties(user));
     });
   })(req, res, next);
 }

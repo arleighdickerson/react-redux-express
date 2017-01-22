@@ -8,7 +8,7 @@ export default (store) => ({
       /*  Webpack - use require callback to define
        dependencies for bundling   */
       //const Login = require('./containers/LoginContainer').default
-      const Login = require('./components/LoginView').default
+      const Login = require('./containers/LoginContainer').default
 
       /*  Return getComponent   */
       cb(null, Login)

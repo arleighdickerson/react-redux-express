@@ -1,7 +1,14 @@
+const _ = require('lodash')
 import React from "react";
-import {reduxForm, Field} from "redux-form";
-import {Input} from 'react-bootstrap'
+import {FormGroup as FG} from "react-bootstrap";
+import {Field, reduxForm} from "redux-form";
+import Input from "app/src/components/Input";
+import {Link} from "react-router";
 
+function FormGroup(props) {
+  props = {...props, bsClass: 'form-group m-b-md'}
+  return <FG {...props}>{props.children}</FG>
+}
 const constraints = {
   username: {
     presence: true,
@@ -13,24 +20,36 @@ const constraints = {
 
 const validate = require('app/util/validate')(constraints)
 
-export class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   render() {
     const {username, password, handleSubmit, pristine, submitting} = this.props;
     return (
-      <form action="/login" method="POST" onSubmit={(e)=> {
-        e.preventDefault();
-        handleSubmit(username, password);
-      }}>
-        <div>
-          <Field fullWidth={true} component={Input} hintText='username' name='username' value={username}/>
+      <form
+        className="m-x-auto text-center app-login-form"
+        role="form"
+        method="POST"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (this.props.valid) {
+            handleSubmit(username, password);
+          }
+        }}>
+        <Link to="/" className="app-brand m-b-lg"
+              style={{width: '100%', textDecoration: 'none', fontFamily: 'Roboto-Bold'}}>
+          <h1>[Dank]</h1>
+        </Link>
+        <Field component={Input} placeholder='username' name='username' value={username}/>
+        <Field component={Input} placeholder='password' name='password' type='password' value={password}
+               componentClasses={{'FormGroup': FormGroup}}/>
+
+        <div className="m-b-lg">
+          <button className="btn btn-primary">Log In</button>
+          <button className="btn btn-default">Sign up</button>
         </div>
-        <div>
-          <Field fullWidth={true} component={Input} hintText='password' name='password' type='password'
-                 value={password}/>
-        </div>
-        <div>
-          <RaisedButton fullWidth={true} type='submit' disabled={pristine || submitting} label='Submit' primary={true}/>
-        </div>
+
+        <footer className="screen-login">
+          <a href="#" className="text-muted">Forgot password</a>
+        </footer>
       </form>
     )
   }

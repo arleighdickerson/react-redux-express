@@ -4,7 +4,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-import * as source from "../sources/Authentication";
+import * as source from "../sources/authentication";
 
 export function logout() {
   return dispatch => source.logout()
