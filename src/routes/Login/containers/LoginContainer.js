@@ -19,4 +19,3 @@ const LoginContainer = (props) => (
   </LoginView>
 )
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
-

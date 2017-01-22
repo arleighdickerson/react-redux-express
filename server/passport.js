@@ -26,7 +26,9 @@ module.exports = function () {
 
   // Load Passport's strategies configuration files
   require('./strategies/local.js')();
-  require('./strategies/twitter.js')();
-  require('./strategies/facebook.js')();
-  require('./strategies/google.js')();
+  //require('./strategies/twitter.js')();
+  //require('./strategies/facebook.js')();
+  //require('./strategies/google.js')();
+
+  return passport
 };

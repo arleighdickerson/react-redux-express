@@ -5,8 +5,9 @@ require('babel-polyfill')
 
 const path = require('path')
 const argv = require('yargs').argv
+const moduleExists = require('module-exists')
 
-const COMMANDS_DIR = '../commands/'
+const COMMANDS_DIR = 'app/commands/'
 const db = require('../server/mongoose')()
 const bootstrap = cb => db.connection.once('open', cb)
 
@@ -15,26 +16,21 @@ function normalize(route) {
 }
 
 const strategies = [
-  route => require(COMMANDS_DIR + route),
-  route => require(COMMANDS_DIR + route).default,
+  route => moduleExists(COMMANDS_DIR + route) ? require(COMMANDS_DIR + route) : null,
+  route => moduleExists(COMMANDS_DIR + route) ? require(COMMANDS_DIR + route).default : null,
   route => {
     const parts = route.split('/')
     const end = parts.pop()
-    return require(COMMANDS_DIR + parts.join('/'))[end]
+    const module = COMMANDS_DIR + parts.join('/')
+    return moduleExists(module) ? require(module)[end] : null
   }
 ]
 
 function getAction(route) {
-  for (let strategy of strategies) {
-    try {
-      const action = strategy(route)
-      if (typeof action == 'function') {
-        return action
-      }
-    } catch (e) {
-      if (e.code != 'MODULE_NOT_FOUND') {
-        throw e
-      }
+  for (const strategy of strategies) {
+    const action = strategy(route)
+    if (typeof action == 'function') {
+      return action
     }
   }
   throw new Error('action could not be resolved')

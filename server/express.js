@@ -13,7 +13,7 @@ var config = require('./config'),
   session = require('express-session'),
   MongoStore = require('connect-mongo')(session),
   flash = require('connect-flash'),
-  passport = require('passport');
+  passport = require('./passport')()
 
 // Define the Express configuration method
 module.exports = function (db) {

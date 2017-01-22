@@ -19,7 +19,7 @@ function normalizePromptResult(result) {
   }
 }
 
-export function create() {
+function create() {
   prompt.get(promptAttributes, (err, result) => {
     console.log(result)
     const user = new User(normalizePromptResult(result))
@@ -34,3 +34,13 @@ export function create() {
       })
   })
 }
+
+function removeAll() {
+  User.remove({}).then(() => process.exit(0))
+    .catch(err => {
+      console.error(err)
+      process.exit(1)
+    })
+}
+
+export {create, removeAll}
