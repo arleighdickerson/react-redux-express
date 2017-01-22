@@ -1,25 +1,26 @@
 'use strict'
 
-const fs = require('fs')
+require('babel-register')
+require('babel-polyfill')
+
 const path = require('path')
 const argv = require('yargs').argv
-const config = require('../config')
 
-const bootstrap = require('../server/main')
+const COMMANDS_DIR = '../commands/'
+const db = require('../server/mongoose')()
+const bootstrap = cb => db.connection.once('open', cb)
 
 function normalize(route) {
   return path.normalize(route.replace(/^\s+|\s+$/g, "/"))
 }
 
-const basePath = '../commands/'
-
 const strategies = [
-  route => require(basePath + route),
-  route => require(basePath + route).default,
+  route => require(COMMANDS_DIR + route),
+  route => require(COMMANDS_DIR + route).default,
   route => {
     const parts = route.split('/')
     const end = parts.pop()
-    return require(basePath + parts.join('/'))[end]
+    return require(COMMANDS_DIR + parts.join('/'))[end]
   }
 ]
 
@@ -31,6 +32,9 @@ function getAction(route) {
         return action
       }
     } catch (e) {
+      if (e.code != 'MODULE_NOT_FOUND') {
+        throw e
+      }
     }
   }
   throw new Error('action could not be resolved')
@@ -41,7 +45,6 @@ const action = getAction(normalize(argv._[0]))
 const callback = () => {
   try {
     action()
-    process.exit(0)
   } catch (e) {
     console.error(e)
     process.exit(1)

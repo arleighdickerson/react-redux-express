@@ -10,7 +10,11 @@ mongoose.Promise = Promise
 // Define the Mongoose configuration method
 module.exports = function () {
   // Use Mongoose to connect to MongoDB
-  const db = mongoose.connect(config.db);
+  const db = mongoose.connect(config.db, function (err) {
+    if (err) {
+      throw err
+    }
+  });
 
   // Load the application models
   require('./models')
