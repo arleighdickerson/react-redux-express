@@ -1,7 +1,7 @@
 const _ = require('lodash')
 import React from "react";
 import {FormGroup as FG} from "react-bootstrap";
-import {Field, reduxForm, SubmissionError} from "redux-form";
+import {Field, reduxForm} from "redux-form";
 import Input from "app/src/components/Input";
 import {Link} from "react-router";
 
@@ -21,43 +21,13 @@ const constraints = {
 const validate = require('app/util/validate')(constraints)
 
 class LoginForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.current = props.store.getState().user
-    this.unsubscribe = () => {
-    }
-  }
-
-  componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(this.listen.bind(this))
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe()
-  }
-
-  listen() {
-    let previous = this.current
-    this.current = this.props.store.getState().user
-    if (this.props.valid && previous !== this.current && !this.current) {
-      throw new SubmissionError
-    }
-  }
-
   render() {
-    const {username, password, handleSubmit, store, pristine, submitting} = this.props;
-    const onSubmit = e => {
-      e.preventDefault()
-      if (this.props.valid) {
-        handleSubmit(username, password)
-      }
-    }
+    const {username, password, submitting} = this.props;
     return (
       <form
         className="m-x-auto text-center app-login-form"
         role="form"
-        method="POST"
-        onSubmit={onSubmit}
+        onSubmit={this.props.handleSubmit(this.props.onSubmit)}
       >
         <Link to="/" className="app-brand m-b-lg"
               style={{width: '100%', textDecoration: 'none', fontFamily: 'Roboto-Bold'}}>
@@ -80,7 +50,7 @@ class LoginForm extends React.Component {
         />
 
         <div className="m-b-lg">
-          <button className="btn btn-primary" disabled={submitting}>Log In</button>
+          <button type="submit" className="btn btn-primary" disabled={submitting}>Log In</button>
           <button className="btn btn-default">Sign up</button>
         </div>
 

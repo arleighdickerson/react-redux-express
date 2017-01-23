@@ -1,13 +1,18 @@
 import React from "react";
-import {login} from "../../../store/user";
 import LoginView from "../components/LoginView";
 import LoginForm from "../components/LoginForm";
-import {getFormValues} from "redux-form";
+import {getFormValues, SubmissionError} from "redux-form";
 import {connect} from "react-redux";
+import {login} from "app/src/store/user";
 
 const mapDispatchToProps = {
-  handleSubmit: login
-};
+  onSubmit: ({username, password}) => {//, dispatch, state) => {
+    return dispatch => dispatch(login(username, password)).catch(err => {
+      throw new SubmissionError({password: 'Invalid username or password'})
+    })
+  }
+}
+
 
 const mapStateToProps = (state) => {
   return {...getFormValues('loginform')(state)}

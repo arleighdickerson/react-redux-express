@@ -34,10 +34,6 @@ export function login(username, password) {
         }),
       }
     }))
-    .catch(() => dispatch({
-      type: LOGIN_FAILURE,
-      payload: null,
-    }))
 }
 
 export const actions = {
@@ -52,14 +48,14 @@ const ACTION_HANDLERS = {
   [LOGIN_SUCCESS]: (state, {payload}) => {
     return payload
   },
-  [LOGIN_FAILURE]: (state, {payload}) => {
-    return false
+  [LOGIN_FAILURE]: () => {
+    return null
   },
   [LOGOUT_SUCCESS]: () => {
     return null
   },
   [LOGOUT_FAILURE]: state => {
-    return false
+    return state
   }
 }
 
@@ -69,3 +65,4 @@ export default function userReducer(state = initialState, action) {
 
   return handler ? handler(state, action) : state
 }
+
