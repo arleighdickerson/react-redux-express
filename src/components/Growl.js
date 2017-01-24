@@ -27,7 +27,6 @@ export default class Growl extends React.Component {
     }
   }
 
-
   componentDidMount() {
     emitter.on(MESSAGE_ADDED, this.receiveMessage)
   }
@@ -83,9 +82,9 @@ class Message extends React.Component {
   }
 
   render() {
-    const {onDismiss, key, component} = this.props
+    const {onDismiss, key, component, bsStyle = "dark"} = this.props
     return (
-      <Alert bsStyle="dark" {...{onDismiss, key}}>
+      <Alert {...{bsStyle, onDismiss, key}}>
         {component}
       </Alert>
     )

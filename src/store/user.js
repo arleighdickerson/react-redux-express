@@ -1,15 +1,13 @@
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+export const USER_LOGIN = 'USER_LOGIN';
+export const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_SIGNUP = 'USER_SIGNUP'
 
 import * as source from "../sources/authentication";
 
 export function logout() {
   return dispatch => source.logout()
     .then(() => dispatch({
-      type: LOGOUT_SUCCESS,
+      type: USER_LOGOUT,
       payload: null,
       meta: {
         transition: (prevState, nextState, action) => ({
@@ -17,16 +15,12 @@ export function logout() {
         }),
       }
     }))
-    .catch(() => dispatch({
-      type: LOGOUT_FAILURE,
-      payload: null,
-    }))
 }
 
 export function login(username, password) {
   return dispatch => source.login(username, password)
     .then(payload => dispatch({
-      type: LOGIN_SUCCESS,
+      type: USER_LOGIN,
       payload,
       meta: {
         transition: (prevState, nextState, action) => ({
@@ -34,6 +28,10 @@ export function login(username, password) {
         }),
       }
     }))
+}
+
+export function signup(attributes) {
+
 }
 
 export const actions = {
@@ -45,18 +43,15 @@ export const actions = {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [LOGIN_SUCCESS]: (state, {payload}) => {
+  [USER_LOGIN]: (state, {payload}) => {
     return payload
   },
-  [LOGIN_FAILURE]: () => {
+  [USER_LOGOUT]: () => {
     return null
   },
-  [LOGOUT_SUCCESS]: () => {
+  [USER_SIGNUP]: () => {
     return null
   },
-  [LOGOUT_FAILURE]: state => {
-    return state
-  }
 }
 
 const initialState = null

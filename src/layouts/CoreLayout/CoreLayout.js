@@ -69,6 +69,9 @@ class CoreLayout extends React.Component {
     ];
     if (!user) {
       items.push({
+        label: 'Sign Up',
+        route: 'signup'
+      }, {
         label: 'Log In',
         route: 'login'
       })

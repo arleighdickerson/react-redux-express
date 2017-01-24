@@ -8,5 +8,13 @@ export function login(username, password) {
 }
 
 export function logout() {
-  return agent.post('/logout')
+  return agent
+    .post('/logout')
+}
+
+export function signup(attributes) {
+  return agent
+    .post('/user/signup')
+    .send(attributes)
+    .then(res => res.body)
 }
