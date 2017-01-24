@@ -1,14 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import Header from "../components/Header";
+import {logout} from "app/src/store/user";
 
+const mapDispatchToProps = {handleLogout: logout}
 
-const mapDispatchToProps = {}
-
-const mapStateToProps = ({user}) => ({
-  avatar: user
-    ? <img className="img-circle" src={require('../../public/img/avatar.gif')}/>
-    : null
-})
+const mapStateToProps = ({user}) => ({user})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

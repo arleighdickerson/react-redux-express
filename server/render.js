@@ -40,12 +40,14 @@ class RenderStrategy {
 
   normalizeState(req, initialState) {
     const pathname = req.path
+    const user = req.user
     return {
       routing: { //initialize router location
         location: {
           pathname
         }
       },
+      user,
       ...initialState
     }
   }

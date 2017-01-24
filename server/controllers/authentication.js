@@ -1,14 +1,6 @@
 const _ = require('lodash')
 const passport = require('passport')
 
-const filterUserProperties = user => _.pick(user, [
-  'id',
-  'username',
-  'email',
-  'firstName',
-  'lastName'
-]);
-
 export function login(req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err) {
@@ -25,7 +17,7 @@ export function login(req, res, next) {
       }
       return res
         .status(200)
-        .json(filterUserProperties(user));
+        .json(user);
     });
   })(req, res, next);
 }

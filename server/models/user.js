@@ -103,9 +103,14 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
 };
 
 // Configure the 'UserSchema' to use getters and virtuals when transforming to JSON
-UserSchema.set('toJSON', {
-  getters: true,
-  virtuals: true
+UserSchema.set('toJSON', () => {
+  const obj = this.toObject({
+    getters: true,
+    virtuals: true
+  })
+  delete obj.password
+  delete obj.salt
+  return obj
 });
 
 // Create the 'User' model out of the 'UserSchema'

@@ -18,43 +18,62 @@ const Item = (function () {
     const liProps = routesMatch(route, current)
       ? {className: 'active'}
       : {};
-    return <li key={key} {...liProps} onClick={()=>handleClick(route)}><a href="javascript:;">{label}</a></li>
+    return <li key={key} {...liProps} onClick={() => handleClick(route)}><a href="javascript:;">{label}</a></li>
   })
 })()
 
-export const Header = ({search = null, items = [], children = []}) => {
-  items.map(props => <Item key={props.route} {...props}/>)
-  return (
-    <nav className="navbar navbar-inverse navbar-fixed-top app-navbar">
-      <div className="container">
-        <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
-                  data-target="#navbar-collapse-main">
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar"/>
-            <span className="icon-bar"/>
-            <span className="icon-bar"/>
-          </button>
-          <Link className="navbar-brand" to="/" style={{fontFamily:'Roboto-Bold'}}>
-            [Dank]
-          </Link>
-        </div>
+class Header extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      collapse: false
+    }
+    this.toggleCollapse = () => this.setState({collapse: !this.state.collapse})
+  }
+
+  render() {
+    const {user, handleLogout, children, search = null, items = []} = this.props
+    const {collapse} = this.state
+    return (
+      <nav className="navbar navbar-inverse navbar-fixed-top app-navbar">
+        <div className="container">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
+                    onClick={this.toggleCollapse}>
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"/>
+              <span className="icon-bar"/>
+              <span className="icon-bar"/>
+            </button>
+            <Link className="navbar-brand" to="/">
+              [Dank]
+            </Link>
+          </div>
+          {collapse &&
+          <div className="navbar-collapse collapse in" id="navbar-collapse-main" aria-expanded="true" style={{}}>
+            <ul className="nav navbar-nav hidden-md hidden-lg">
+              {items.map(props => <Item key={'a' + props.route} {...props}/>)}
+              {user &&
+              <li>
+                <a href="javascript:;" onClick={handleLogout}>Logout</a>
+              </li>
+              }
+            </ul>
+          </div>
+          }{!collapse &&
         <div className="navbar-collapse collapse" id="navbar-collapse-main">
           <ul className="nav navbar-nav hidden-xs">
-            {items.map(props => <Item key={'a'+props.route} {...props}/>)}
+            {items.map(props => <Item key={'a' + props.route} {...props}/>)}
           </ul>
 
           <ul className="nav navbar-nav navbar-right m-r-0 hidden-xs">
-            {(function () {
-              let i = 0;
-              return children.map(child => <li key={i++}>{child}</li>)
-            })()}
+            {children}
           </ul>
 
           {search}
 
           <ul className="nav navbar-nav hidden-sm hidden-md hidden-lg">
-            {items.map(props => <Item key={'small.'+props.route} {...props}/>)}
+            {items.map(props => <Item key={'small.' + props.route} {...props}/>)}
           </ul>
 
           <ul className="nav navbar-nav hidden">
@@ -62,9 +81,11 @@ export const Header = ({search = null, items = [], children = []}) => {
             <li><a href="login/index.html">Logout</a></li>
           </ul>
         </div>
-      </div>
-    </nav>
-  )
+        }
+        </div>
+      </nav>
+    )
+  }
 }
 
 Header.defaultProps = {
