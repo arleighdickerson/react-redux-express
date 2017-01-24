@@ -7,6 +7,8 @@ const agent = require('superagent-use')(
   )
 )
 
+global.agent = agent
+
 export default agent
   .use(require('superagent-prefix')('/api'))
   .use(request => {

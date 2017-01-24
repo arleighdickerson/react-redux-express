@@ -8,7 +8,7 @@ import {signup} from "app/src/store/user";
 const mapDispatchToProps = {
   onSubmit: (attributes) => {
     return dispatch => dispatch(signup(attributes)).catch(err => {
-      throw new SubmissionError({username: 'hotdog'})
+      throw new SubmissionError(err.response.body)
     })
   }
 }

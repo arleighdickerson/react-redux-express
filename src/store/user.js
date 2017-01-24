@@ -31,12 +31,22 @@ export function login(username, password) {
 }
 
 export function signup(attributes) {
-
+  return dispatch => source.signup(attributes)
+    .then(payload => dispatch({
+      type: USER_SIGNUP,
+      payload: attributes,
+      meta: {
+        transition: (prevState, nextState, action) => ({
+          pathname: '/'
+        }),
+      }
+    }))
 }
 
 export const actions = {
   login,
-  logout
+  logout,
+  signup
 };
 
 // ------------------------------------
@@ -49,8 +59,8 @@ const ACTION_HANDLERS = {
   [USER_LOGOUT]: () => {
     return null
   },
-  [USER_SIGNUP]: () => {
-    return null
+  [USER_SIGNUP]: (state,{payload}) => {
+    return payload
   },
 }
 

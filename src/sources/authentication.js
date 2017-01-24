@@ -14,7 +14,7 @@ export function logout() {
 
 export function signup(attributes) {
   return agent
-    .post('/user/signup')
+    .post('/signup')
     .send(attributes)
     .then(res => res.body)
 }

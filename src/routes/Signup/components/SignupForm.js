@@ -1,6 +1,8 @@
 const _ = require('lodash')
 import React from "react";
-import {reduxForm} from "redux-form";
+import {Button} from "react-bootstrap";
+import {reduxForm, Field} from "redux-form";
+import Input from "app/src/components/Input";
 
 const constraints = {
   firstName: {
@@ -35,16 +37,57 @@ const validate = attributes => {
   return errors
 }
 
-const fields = Object.keys(constraints)
-const passwordFields = ['password', 'repeatPassword']
-
 class SignupForm extends React.Component {
   render() {
+    const {submitting, firstName, lastName, username, email, password, repeatPassword} = this.props
     return (
       <form
         role="form"
         onSubmit={this.props.handleSubmit(this.props.onSubmit)}
       >
+        <Field
+          component={Input}
+          label='First Name'
+          name='firstName'
+          value={firstName}
+          disabled={submitting}
+        />
+        <Field
+          component={Input}
+          label='Last Name'
+          name='lastName'
+          value={lastName}
+          disabled={submitting}
+        />
+        <Field
+          component={Input}
+          label='Username'
+          name='username'
+          value={username}
+          disabled={submitting}
+        />
+        <Field
+          component={Input}
+          label='Email'
+          name='email'
+          value={email}
+          disabled={submitting}
+        />
+        <Field component={Input}
+               label='Password'
+               name='password'
+               type='password'
+               value={password}
+               disabled={submitting}
+        />
+        <Field component={Input}
+               label='Repeat Password'
+               name='repeatPassword'
+               type='password'
+               value={repeatPassword}
+               disabled={submitting}
+        />
+        <Button type="submit" bsStyle="primary" disabled={submitting}>Submit</Button>
       </form>
     )
   }
@@ -52,6 +95,5 @@ class SignupForm extends React.Component {
 
 export default reduxForm({
   form: 'signupform',
-  initialValues: _.keyBy(fields, () => ''),
   validate
 })(SignupForm);

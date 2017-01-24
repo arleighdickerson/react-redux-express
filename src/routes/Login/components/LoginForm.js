@@ -51,7 +51,7 @@ class LoginForm extends React.Component {
 
         <div className="m-b-lg">
           <button type="submit" className="btn btn-primary" disabled={submitting}>Log In</button>
-          <button className="btn btn-default">Sign up</button>
+          <button className="btn btn-default" disabled={submitting}>Sign up</button>
         </div>
 
         <footer className="screen-login">
