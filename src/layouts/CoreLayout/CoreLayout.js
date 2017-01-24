@@ -2,6 +2,7 @@ import React from "react";
 import HeaderContainer from "../../containers/HeaderContainer";
 import {connect} from "react-redux";
 import {logout} from "app/src/store/user";
+import Growl from "app/src/components/Growl";
 
 const UserOptions = ({handleLogout}) => (
   <div
@@ -80,6 +81,7 @@ class CoreLayout extends React.Component {
 
     return (
       <div className="with-top-navbar">
+        <Growl/>
         <HeaderContainer avatar={DEFAULT_AVATAR} items={this.getItems(user)}>{/*
          <a className="app-notifications" href="notifications/index.html">
          <span className="icon icon-bell"/>
