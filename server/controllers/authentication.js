@@ -12,7 +12,7 @@ export function login(req, res, next) {
     }
     req.logIn(user, err => err
       ? next(err)
-      : res.status(200).json(user)).end()
+      : res.status(200).json(user))
   })(req, res, next);
 }
 
