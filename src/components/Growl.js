@@ -61,10 +61,6 @@ export default class Growl extends React.Component {
 }
 
 class Message extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     if (this.props.timeout) {
       const close = () => {
