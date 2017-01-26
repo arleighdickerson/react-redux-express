@@ -23,9 +23,6 @@ module.exports = function (db) {
   // Create a new HTTP server
   var server = http.createServer(app);
 
-  // Create a new Socket.io server
-  var io = socketio.listen(server);
-
   // Use the 'NDOE_ENV' variable to activate the 'morgan' logger or 'compress' middleware
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
@@ -74,9 +71,6 @@ module.exports = function (db) {
   // Configure static file serving
   app.use(express.static('./public'));
 
-  // Load the Socket.io configuration
-  require('./socketio')(server, io, mongoStore);
-
   // Return the Server instance
-  return app
+  return {app, mongoStore, server}
 };

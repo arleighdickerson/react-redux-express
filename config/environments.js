@@ -5,22 +5,25 @@ module.exports = {
   // ======================================================
   // Overrides when NODE_ENV === 'development'
   // ======================================================
-  development : (config) => ({
-    server_host : 'localhost',
+  development: (config) => ({
+    server_host: 'localhost',
     compiler_devtool: 'eval-source-map',
+    sessionSecret: 'gossamer',
+    socketio_port: 8888,
   }),
 
   // ======================================================
   // Overrides when NODE_ENV === 'production'
   // ======================================================
-  production : (config) => ({
-    compiler_fail_on_warning : false,
-    compiler_hash_type       : 'chunkhash',
-    compiler_devtool         : null,
-    compiler_stats           : {
-      chunks       : true,
-      chunkModules : true,
-      colors       : true
-    }
+  production: (config) => ({
+    compiler_fail_on_warning: false,
+    compiler_hash_type: 'chunkhash',
+    compiler_devtool: null,
+    compiler_stats: {
+      chunks: true,
+      chunkModules: true,
+      colors: true
+    },
+    socketio_port: config.server_port
   })
 }

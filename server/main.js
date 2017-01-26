@@ -8,6 +8,7 @@ const webpackConfig = require('../build/webpack.config')
 const config = require('../config')
 const compress = require('compression')
 const express = require('express')
+const socketio = require('socket.io')
 
 const mongoose = require('./mongoose')
 const db = mongoose()
@@ -22,7 +23,10 @@ module.exports = function (cb) {
   db.connection.once('open', function () {
     debug('mongodb connection established')
 
-    const app = require('./express')(db)
+    const stuff = require('./express')(db) //apparently I haven't wired the spread syntax on the server
+    const app = stuff.app
+    const mongoStore = stuff.mongoStore
+    const server = stuff.server
 
     // Apply gzip compression
     app.use(compress())
@@ -67,6 +71,12 @@ module.exports = function (cb) {
       // server in production.
       app.use(express.static(config.utils_paths.dist()))
     }
+
+    const io = config.server_port == config.socketio_port
+      ? socketio.listen(server)
+      : socketio(config.socketio_port)
+
+    require('./socketio')(io, mongoStore);
 
     cb(app)
   })

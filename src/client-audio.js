@@ -1,6 +1,7 @@
 const io = require('socket.io-client');
 const ss = require('socket.io-stream');
-const socket = io('https://dank.io', {
+const ioHost = window.location.hostname + (window.___SOCKETIO_PORT__ ? ":" + window.___SOCKETIO_PORT__ : "")
+const socket = io(ioHost, {
   transports: ['websocket'] // long polling can't keep up :/
 });
 const createStream = require('app/util/create-stream');
@@ -133,6 +134,4 @@ controller.playCache = function (cache) {
   }
 };
 
-export {controller, socket}
-
-export default controller
+module.exports = controller

@@ -25,7 +25,6 @@ const config = {
   // ----------------------------------
   server_host: ip.address(),
   server_port: process.env.PORT || 3000,
-  renderer_port: process.env.PORT || 3001,
 
   // ----------------------------------
   // Compiler Configuration

@@ -2,12 +2,11 @@ const debug = require('debug')('app:server:socketio')
 const ss = require('socket.io-stream')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
-
 const config = require('./config')
 const createStream = require('app/util/create-stream')
 
 // Define the Socket.io configuration method
-module.exports = function (server, io, mongoStore) {
+module.exports = function (io, mongoStore) {
   debug('initializing socketio server')
   // Intercept Socket.io's handshake request
   io.use(function (socket, next) {
@@ -39,6 +38,8 @@ module.exports = function (server, io, mongoStore) {
     debug('SocketIO client connected')
 
     ss(socket).on('audio', function (istream) {
+      debug('>>> Receiving Audio Stream')
+      istream.on('end', () => debug('||| End of Audio Stream'))
       for (let i in io.sockets.connected) {
         if (io.sockets.connected[i].id != socket.id) {
           const outbound = io.sockets.connected[i]

@@ -55,6 +55,7 @@ class RenderStrategy {
   interpolate(result, {component, initialState}) {
     _.templateSettings.interpolate = /{{([\s\S]+?)}}/g
     return _.template(result)({
+      socketioPort : config.socketio_port,
       component,
       initialState: JSON.stringify(initialState)
     })
@@ -133,3 +134,4 @@ module.exports = app => app.use((req, res, next) => {
   res.isomorphic = (initialState = {}) => STRATEGY.render(req, res, next, STRATEGY.normalizeState(req, initialState))
   next()
 })
+
